@@ -4,6 +4,17 @@ import numpy as np
 
 # Set the page title
 st.title("🎈 My First Streamlit App")
+
+# Add this to your app.py
+st.sidebar.title("Navigation")
+page = st.sidebar.selectbox("Choose a page", ["Home", "Data", "Analysis"])
+if page == "Home":
+    st.write("Welcome to the home page")
+elif page == "Data":
+    st.write("Here's your data section")
+elif page == "Analysis":
+    st.write("Analysis tools go here")
+
 # Add a welcome message
 st.write("Welcome to my app! This is running on Streamlit Cloud.")
 
