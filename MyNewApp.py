@@ -1,38 +1,19 @@
 import streamlit as st
-import pandas as pd
+import cv2
 import numpy as np
 
-# Set the page title
-st.title("🎈 My First Streamlit App")
+# Write the title of the app
+st.title("Image Thresholding App")
 
-# Add this to your app.py
-st.sidebar.title("Navigation")
-page = st.sidebar.selectbox("Choose a page", ["Home", "Data", "Analysis"])
-if page == "Home":
-    st.write("Welcome to the home page")
-elif page == "Data":
-    st.write("Here's your data section")
-elif page == "Analysis":
-    st.write("Analysis tools go here")
+# Load the image
+img_path = './road_lanes.png'
+img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
 
-# Add a welcome message
-st.write("Welcome to my app! This is running on Streamlit Cloud.")
+if img is not None:
+    # Perform binary thresholding
+    retval, img_thresh = cv2.threshold(img, 165, 255, cv2.THRESH_BINARY)
 
-st.button("Click me - I am a new button")
-
-# Create a simple dataframe
-st.subheader("Here's a sample dataframe:")
-df = pd.DataFrame({
-    'Column A': [1, 2, 3, 4, 5],
-    'Column B': ['Apple', 'Banana', 'Cherry', 'Date', 'Elderberry'],
-    'Column C': np.random.randn(5)
-})
-st.dataframe(df)
-# Add an interactive widget
-st.subheader("Try this slider:")
-slider_value = st.slider("Select a number", 0, 100, 50)
-st.write(f"You selected: {slider_value}")
-# Add a button
-if st.button("Click me!"):
-    st.balloons()
-    st.success("🎉 Congratulations! Your app is working!")
+    # Display the original and thresholded images side-by-side
+    st.image([img, img_thresh], caption=['Original Image', 'Thresholded Image'], width=300)
+else:
+    st.error("Error: Could not load the image.")
