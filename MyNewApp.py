@@ -6,6 +6,9 @@ import numpy as np
 st.title("🎈 My First Streamlit App")
 # Add a welcome message
 st.write("Welcome to my app! This is running on Streamlit Cloud.")
+
+st.button("Click me - I am a new button")
+
 # Create a simple dataframe
 st.subheader("Here's a sample dataframe:")
 df = pd.DataFrame({
